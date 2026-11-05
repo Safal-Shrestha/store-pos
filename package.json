@@ -1,0 +1,35 @@
+{
+  "name": "store-pos",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "**An integrated Point of Sale and Business Management System for a General Store and LPG Gas Business.**",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "test": "npm run test -w backend",
+    "db:migrate": "npm run migrate -w backend",
+    "db:migrate:down": "npm run migrate:down -w backend",
+    "db:create": "npm run migrate:create -w backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Safal-Shrestha/store-pos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Safal-Shrestha/store-pos/issues"
+  },
+  "homepage": "https://github.com/Safal-Shrestha/store-pos#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
