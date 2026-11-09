@@ -9,34 +9,34 @@ export const shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 export const up = (pgm) => {
-    pgm.createType("user_role", ['admin', 'owner', 'employee']);
-    pgm.createTable("users", {
+    pgm.createType('user_role', ['admin', 'owner', 'employee']);
+    pgm.createTable('users', {
         user_id: {
-            type: "uuid",
-            primaryKey: "true",
-            default: pgm.func("gen_random_uuid()"),
+            type: 'uuid',
+            primaryKey: true,
+            default: pgm.func('gen_random_uuid()'),
         },
         username: {
-            type: "varchar(100)",
+            type: 'varchar(100)',
             notNull: true,
             unique: true,
         },
         password_hash: {
-            type: "text",
+            type: 'text',
             notNull: true,
         },
         role: {
-            type: "user_role",
+            type: 'user_role',
             notNull: true,
             default: 'employee',
         },
         is_active: {
-            type: "boolean",
+            type: 'boolean',
             notNull: true,
             default: true,
         },
         created_at: {
-            type: "timestamptz",
+            type: 'timestamptz',
             notNull: true,
             default: pgm.func("now()"),
         },
@@ -49,6 +49,6 @@ export const up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 export const down = (pgm) => {
-    pgm.dropTable("users");
-    pgm.dropType("user_role");
+    pgm.dropTable('users');
+    pgm.dropType('user_role');
 };
