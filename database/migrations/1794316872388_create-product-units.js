@@ -93,6 +93,17 @@ export const up = (pgm) => {
             onUpdate: 'CASCADE',
         },
     });
+    pgm.createIndex('product_units', 'product_id', {
+        name: 'unique_product_default_sale_unit',
+        unique: true,
+        where: 'is_default_sale_unit = TRUE',
+    });
+
+    pgm.createIndex('product_units', 'barcode', {
+        name: 'unique_product_unit_barcode',
+        unique: true,
+        where: 'barcode IS NOT NULL',
+    });
 };
 
 /**
