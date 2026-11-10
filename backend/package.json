@@ -10,6 +10,7 @@
     "start": "node dist/server.js",
     "test": "node --test",
     "migrate": "node-pg-migrate up --config-file migration.config.mjs",
+    "migrate:test": "node-pg-migrate up --dry-run --config-file migration.config.mjs",
     "migrate:down": "node-pg-migrate down --config-file migration.config.mjs",
     "migrate:create": "node-pg-migrate create --config-file migration.config.mjs"
   },
