@@ -56,8 +56,8 @@ export const up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 export const down = (pgm) => {
-    pgm.dropTable('customers');
-    pgm.dropConstraint('customers', 'chk_phone_e164_format');
-    pgm.dropConstraint('customer', 'chk_phone_secondary_e164_format');
     pgm.dropConstraint('customers', 'unique_customer_name_contact');
+    pgm.dropConstraint('customers', 'chk_phone_secondary_e164_format');
+    pgm.dropConstraint('customers', 'chk_phone_e164_format');
+    pgm.dropTable('customers');
 };

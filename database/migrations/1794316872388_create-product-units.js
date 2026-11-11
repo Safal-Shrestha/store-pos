@@ -88,7 +88,7 @@ export const up = (pgm) => {
     pgm.addConstraint('product_units', 'fk_product_units_uom', {
         foreignKeys: {
             columns: 'unit_id',
-            references: 'units_of_measurement(measure_id)',
+            references: 'units_of_measure(measure_id)',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         },

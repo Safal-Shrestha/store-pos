@@ -21,7 +21,7 @@ export const up = (pgm) => {
             notNull: true,
         },
         abbreviation: {
-            type: 'varchar(0)',
+            type: 'varchar(20)',
             notNull: true,
             unique: true,
         },

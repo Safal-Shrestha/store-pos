@@ -60,7 +60,7 @@ export const up = (pgm) => {
     pgm.addConstraint('products', 'fk_product_category', {
         foreignKeys: {
             columns: 'category_id',
-            references: 'proudct_category(product_category_id)',
+            references: 'product_category(product_category_id)',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         },
