@@ -10,6 +10,7 @@ export const shorthands = undefined;
  */
 export const up = (pgm) => {
     pgm.createType('inventory_operation_type', ['purchase', 'sale', 'conversion', 'adjustment', 'return', 'damange', 'consumption', 'opening_balance']);
+    pgm.createType('operation_status_type', ['draft', 'posted', 'reversed']);
     pgm.createTable('inventory_operations', {
         inventory_operations_id: {
             type: 'uuid',
@@ -29,11 +30,21 @@ export const up = (pgm) => {
         notes: {
             type: 'text',
         },
+        status: {
+            type: 'operation_status_type',
+            notNull: true,
+            default: 'posted',
+        },
         created_at: {
             type: 'timestamptz',
             notNull: true,
             default: 'now()',
         },
+    });
+    pgm.createIndex('inventory_operations', ['reference_type', 'reference_id'], {
+        name: 'unique_inventory_operation_reference',
+        unique: true,
+        where: 'reference_type IS NOT NULL AND reference_id IS NOT NULL',
     });
 };
 
@@ -43,6 +54,11 @@ export const up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 export const down = (pgm) => {
+    pgm.dropIndex('inventory_operations', ['reference_type', 'reference_id'], {
+        name: 'uq_inventory_operation_reference',
+        ifExists: true,
+    });
     pgm.dropTable('inventory_operations');
+    pgm.dropType('operation_status_type');
     pgm.dropType('inventory_operation_type');
 };

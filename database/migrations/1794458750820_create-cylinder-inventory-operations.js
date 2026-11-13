@@ -29,11 +29,21 @@ export const up = (pgm) => {
         notes: {
             type: 'text',
         },
+        status: {
+            type: 'operation_status_type',
+            notNull: true,
+            default: 'posted',
+        },
         created_at: {
             type: 'timestamptz',
             notNull: true,
             default: pgm.func('now()'),
         },
+    });
+    pgm.createIndex('cylinder_inventory_operations', ['reference_type', 'reference_id'], {
+        name: 'unique_cylinder_operation_reference',
+        unique: true,
+        where: 'reference_type IS NOT NULL AND reference_id IS NOT NULL',
     });
 };
 
@@ -43,6 +53,10 @@ export const up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 export const down = (pgm) => {
+    pgm.dropIndex('cylinder_inventory_operations', ['reference_type', 'reference_id'], {
+        name: 'uq_cylinder_operation_reference',
+        ifExists: true,
+    });
     pgm.dropTable('cylinder_inventory_operations');
     pgm.dropType('gas_operation_types');
 };
